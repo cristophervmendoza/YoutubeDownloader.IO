@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div id="notification" class="notification"></div>
+
+    <div id="folderModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>📁 Selecciona dónde guardar</h3>
+            <p class="modal-subtitle">Elige la carpeta donde se guardará el archivo</p>
+            
+            <div class="folder-selector-modal">
+                <input 
+                    type="text" 
+                    id="selectedPath" 
+                    placeholder="Carpeta de destino..."
+                    readonly
+                >
+                <button id="browseFolderBtn" class="browse-btn">
+                    📂 Explorar
+                </button>
+            </div>
+            
+            <input type="file" id="folderInput" webkitdirectory directory style="display: none;">
+            
+            <div class="modal-actions">
+                <button id="confirmDownloadBtn" class="btn-primary" disabled>
+                    Descargar
+                </button>
+                <button id="cancelModalBtn" class="btn-secondary">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+        <div class="modal-overlay"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>📥 YouTube Downloader</h1>
+            <p>Descarga videos de YouTube en diferentes calidades</p>
+        </header>
+
+        <div class="search-section">
+            <input 
+                type="text" 
+                id="urlInput" 
+                placeholder="Pega la URL del video de YouTube aquí..."
+                autocomplete="off"
+            >
+            <button id="searchBtn">Buscar</button>
+        </div>
+
+        <div id="loader" class="loader hidden">
+            <div class="spinner"></div>
+            <p>Cargando información del video...</p>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+
+        <div id="videoInfo" class="video-info hidden">
+            <div class="video-preview">
+                <div class="thumbnail-container">
+                    <img id="thumbnail" src="" alt="Video thumbnail">
+                    <div class="no-play-overlay">
+                        <span>🚫 Vista previa únicamente</span>
+                    </div>
+                </div>
+                <div class="video-details">
+                    <h2 id="title"></h2>
+                    <p class="meta">
+                        <span id="author"></span> • 
+                        <span id="duration"></span> • 
+                        <span id="views"></span> vistas
+                    </p>
+                </div>
+            </div>
+
+            <div class="download-options">
+                <div class="tabs">
+                    <button class="tab active" data-tab="video">
+                        🎥 Video (MP4)
+                    </button>
+                    <button class="tab" data-tab="audio">
+                        🎵 Audio (MP3)
+                    </button>
+                </div>
+
+                <div class="tab-content active" id="video-tab">
+                    <h3>Selecciona la calidad del video:</h3>
+                    <div id="videoFormats" class="formats-grid"></div>
+                </div>
+
+                <div class="tab-content" id="audio-tab">
+                    <h3>Selecciona la calidad del audio:</h3>
+                    <div id="audioFormats" class="formats-grid"></div>
+                </div>
+            </div>
+
+            <div id="downloadStatus" class="download-status hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="status-text">Descargando...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
